@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Site Data Cleaner & Inspector",
+  "version": "1.1.0",
+  "description": "Inspecciona y elimina cookies, almacenamiento local, caché y sesiones del sitio web actual.",
+  "permissions": [
+    "browsingData",
+    "activeTab",
+    "scripting",
+    "cookies"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "icons": {
+    "128": "icon.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Ver y limpiar datos de este sitio",
+    "default_icon": {
+      "128": "icon.png"
+    }
+  }
+}

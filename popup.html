@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    /* --- NUEVOS ESTILOS PARA LA BARRA DE DESPLAZAMIENTO (SCROLLBAR) --- */
+    /* Ancho y alto de la barra */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    /* Fondo del carril por el que se desplaza */
+    ::-webkit-scrollbar-track {
+      background: #11111b; /* Oscuro profundo, a juego con el contenedor */
+      border-radius: 4px;
+    }
+    /* El "pulgar" o barra de agarre móvil */
+    ::-webkit-scrollbar-thumb {
+      background: #45475a; /* Gris medio apagado, sutil */
+      border-radius: 4px;
+      border: 1.5px solid #11111b; /* Margen interno para dar separación */
+    }
+    /* El "pulgar" al pasar el mouse por encima */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #585b70; /* Gris más claro al interactuar */
+    }
+    /* Esquina inferior cuando hay scroll horizontal y vertical */
+    ::-webkit-scrollbar-corner {
+      background: #11111b;
+    }
+    /* ----------------------------------------------------------------- */
+
+    body {
+      width: 380px;
+      margin: 0;
+      padding: 16px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background-color: #1e1e2e;
+      color: #cdd6f4;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    h3 {
+      margin: 0 0 6px 0;
+      font-size: 14px;
+      font-weight: 600;
+      color: #a6adc8;
+    }
+    #domain {
+      display: inline-block;
+      background: #313244;
+      color: #89b4fa;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-family: monospace;
+      word-break: break-all;
+    }
+    #quota {
+      font-size: 11px;
+      color: #a6adc8;
+      margin-top: 6px;
+    }
+    .data-container {
+      max-height: 290px;
+      overflow-y: auto;
+      margin-bottom: 14px;
+      border: 1px solid #313244;
+      border-radius: 8px;
+      background: #181825;
+      padding: 6px;
+    }
+    details {
+      margin-bottom: 6px;
+      background: #1e1e2e;
+      border-radius: 6px;
+      border: 1px solid #313244;
+      overflow: hidden;
+    }
+    details:last-child {
+      margin-bottom: 0;
+    }
+    summary {
+      padding: 8px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+    summary:hover {
+      background: #313244;
+    }
+    .badge {
+      background: #45475a;
+      color: #cdd6f4;
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-family: monospace;
+    }
+    .item-list {
+      padding: 8px 10px;
+      border-top: 1px solid #313244;
+      font-family: monospace;
+      font-size: 11px;
+      max-height: 140px;
+      overflow-y: auto;
+    }
+    .item {
+      padding: 4px 0;
+      border-bottom: 1px dashed #313244;
+      word-break: break-all;
+    }
+    .item:last-child {
+      border-bottom: none;
+    }
+    .key {
+      color: #f9e2af;
+      font-weight: bold;
+    }
+    .val {
+      color: #a6adc8;
+    }
+    .empty {
+      color: #6c7086;
+      font-style: italic;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      background-color: #f38ba8;
+      color: #11111b;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    button:hover:not(:disabled) {
+      opacity: 0.9;
+    }
+    button:disabled {
+      background-color: #45475a;
+      color: #7f849c;
+      cursor: not-allowed;
+    }
+    #status {
+      margin-top: 8px;
+      font-size: 12px;
+      text-align: center;
+      min-height: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h3>Datos almacenados en</h3>
+    <div id="domain">Cargando...</div>
+    <div id="quota">Calculando espacio usado...</div>
+  </div>
+
+  <div class="data-container">
+    <details>
+      <summary>
+        <span>Cookies</span>
+        <span class="badge" id="cookies-count">0</span>
+      </summary>
+      <div class="item-list" id="cookies-list"></div>
+    </details>
+
+    <details>
+      <summary>
+        <span>Local Storage</span>
+        <span class="badge" id="local-count">0</span>
+      </summary>
+      <div class="item-list" id="local-list"></div>
+    </details>
+
+    <details>
+      <summary>
+        <span>Session Storage</span>
+        <span class="badge" id="session-count">0</span>
+      </summary>
+      <div class="item-list" id="session-list"></div>
+    </details>
+
+    <details>
+      <summary>
+        <span>IndexedDB & Cache Storage</span>
+        <span class="badge" id="other-count">0</span>
+      </summary>
+      <div class="item-list" id="other-list"></div>
+    </details>
+  </div>
+
+  <button id="clean-btn">Limpiar todo y recargar</button>
+  <div id="status"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
